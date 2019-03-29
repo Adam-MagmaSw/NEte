@@ -1,6 +1,7 @@
 ﻿namespace NEte
 {
     using System;
+
     public interface IAct<T>
     {
         IAct<T> And(Action<T> step);

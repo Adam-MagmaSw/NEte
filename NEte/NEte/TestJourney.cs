@@ -160,7 +160,7 @@
             return this;
         }
 
-        IArrange<T> IAssert<T>.SubsequentlyGiven(Action<T> step)
+        public IArrange<T> SubsequentlyGiven(Action<T> step)
         {
             this.testSteps.Add(new BasicTestStep<T>(step, step, this.context, GetTextFromMethod(MethodBase.GetCurrentMethod())));
             return this;
@@ -233,13 +233,13 @@
         #endregion
 
         #region Act
-        IAct<T> IArrange<T>.When(Action<T> step)
+        public IAct<T> When(Action<T> step)
         {
             this.testSteps.Add(new BasicTestStep<T>(step, step, this.context, GetTextFromMethod(MethodBase.GetCurrentMethod())));
             return this;
         }
 
-        IAct<T> IArrange<T>.When<T0>(Action<T, T0> step, T0 arg0)
+        public IAct<T> When<T0>(Action<T, T0> step, T0 arg0)
         {
             this.testSteps.Add(new BasicTestStep<T>(step,
                 c =>
@@ -252,7 +252,7 @@
             return this;
         }
 
-        IAct<T> IArrange<T>.When<T0, T1>(Action<T, T0, T1> step, T0 arg0, T1 arg1)
+        public IAct<T> When<T0, T1>(Action<T, T0, T1> step, T0 arg0, T1 arg1)
         {
             this.testSteps.Add(new BasicTestStep<T>(step,
                 c =>
@@ -265,7 +265,7 @@
             return this;
         }
 
-        IAct<T> IArrange<T>.When<T0, T1, T2>(Action<T, T0, T1, T2> step, T0 arg0, T1 arg1, T2 arg2)
+        public IAct<T> When<T0, T1, T2>(Action<T, T0, T1, T2> step, T0 arg0, T1 arg1, T2 arg2)
         {
             this.testSteps.Add(new BasicTestStep<T>(step,
                 c =>
@@ -278,7 +278,7 @@
             return this;
         }
 
-        IAct<T> IArrange<T>.When<T0, T1, T2, T3>(Action<T, T0, T1, T2, T3> step, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+        public IAct<T> When<T0, T1, T2, T3>(Action<T, T0, T1, T2, T3> step, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
         {
             this.testSteps.Add(new BasicTestStep<T>(step,
                 c =>
@@ -291,7 +291,7 @@
             return this;
         }
 
-        IAct<T> IArrange<T>.When<T0, T1, T2, T3, T4>(Action<T, T0, T1, T2, T3, T4> step, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+        public IAct<T> When<T0, T1, T2, T3, T4>(Action<T, T0, T1, T2, T3, T4> step, T0 arg0, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
         {
             this.testSteps.Add(new BasicTestStep<T>(step,
                 c =>
@@ -375,7 +375,7 @@
             return this;
         }
 
-        IAct<T> IAssert<T>.SubsequentlyWhen(Action<T> step)
+        public IAct<T> SubsequentlyWhen(Action<T> step)
         {
             this.testSteps.Add(new BasicTestStep<T>(step, step, this.context, GetTextFromMethod(MethodBase.GetCurrentMethod())));
             return this;
@@ -448,13 +448,13 @@
         #endregion
 
         #region Assert
-        IAssert<T> IAssert<T>.And(Action<T> step)
+        public IAssert<T> And(Action<T> step)
         {
             this.testSteps.Add(new AssertTestStep<T>(step, step, this.context, GetTextFromMethod(MethodBase.GetCurrentMethod())));
             return this;
         }
 
-        IAssert<T> IAssert<T>.And<T0>(Action<T, T0> step, T0 arg0)
+        public IAssert<T> And<T0>(Action<T, T0> step, T0 arg0)
         {
             this.testSteps.Add(new AssertTestStep<T>(step,
                 c =>
@@ -467,7 +467,7 @@
             return this;
         }
 
-        IAssert<T> IAssert<T>.And<T0, T1>(Action<T, T0, T1> step, T0 arg0, T1 arg1)
+        public IAssert<T> And<T0, T1>(Action<T, T0, T1> step, T0 arg0, T1 arg1)
         {
             this.testSteps.Add(new AssertTestStep<T>(step,
                 c =>
@@ -480,7 +480,7 @@
             return this;
         }
 
-        IAssert<T> IAssert<T>.And<T0, T1, T2>(Action<T, T0, T1, T2> step, T0 arg0, T1 arg1, T2 arg2)
+        public IAssert<T> And<T0, T1, T2>(Action<T, T0, T1, T2> step, T0 arg0, T1 arg1, T2 arg2)
         {
             this.testSteps.Add(new AssertTestStep<T>(step,
                 c =>
@@ -493,7 +493,7 @@
             return this;
         }
 
-        IAssert<T> IAssert<T>.And<T0, T1, T2, T3>(Action<T, T0, T1, T2, T3> step, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
+        public IAssert<T> And<T0, T1, T2, T3>(Action<T, T0, T1, T2, T3> step, T0 arg0, T1 arg1, T2 arg2, T3 arg3)
         {
             this.testSteps.Add(new AssertTestStep<T>(step,
                 c =>
@@ -519,7 +519,7 @@
             return this;
         }
 
-        IAssert<T> IAssert<T>.And(Action<T> step, AssertOptions assertOptions)
+        public IAssert<T> And(Action<T> step, AssertOptions assertOptions)
         {
             this.testSteps.Add(new AssertTestStep<T>(step, step, this.context, GetTextFromMethod(MethodBase.GetCurrentMethod()), assertOptions));
             return this;

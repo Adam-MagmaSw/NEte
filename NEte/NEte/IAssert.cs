@@ -1,6 +1,7 @@
 ﻿namespace NEte
 {
     using System;
+
     public interface IAssert<T>
     {
         IAssert<T> And(Action<T> step);

@@ -1,14 +1,29 @@
 ﻿namespace NEte.UnitTests
 {
     using System;
-    using System.Diagnostics;
 
-    using NEte;
     using NUnit.Framework;
 
-    [TestFixture]
-    public class Class1
+    public class AssertAndRetryTests
     {
+        // ensure assert retries do actually retry the correct amount of times
+
+        // ensure tests keep running after a non-critical assert failure
+
+        // ensure critical assert retries do actually retry the correct amount of times
+
+        // ensure tests don't keep running after critical asserts fail
+
+        // ensure test re-runs do actually re-run from the correct place
+
+        // ensure when an assert fails the test fails
+
+        // ensure when an assert passes the test passes
+
+        // ensure test retry actions fail validation when action appears multiple times
+
+        // ensure test retry actions fail validation when action doesn't appear in test
+
         [Test]
         public void RunSomeTest()
         {
@@ -49,6 +64,17 @@
                 .RunTest();
         }
 
+        [Test]
+        public void RunSomeTestWithInvalidRetryConfig()
+        {
+            EndToEndTestJourney<TestContext>
+                .Given(SomeArrangeStepIsPerformed)
+                .When(SomeActionIsPerformed)
+                .And(SomeActionIsPerformed)
+                .ThenCritically(SomethingIsAssertedFalse, new CriticalAssertOptionsBuilder<TestContext>().RetryTestUponFailure(3, TimeSpan.FromSeconds(1), SomeActionIsPerformed).Build())
+                .RunTest();
+        }
+
         public void SomeArrangeStepIsPerformed(TestContext c)
         {
             c.SomeString = "String!!!";
@@ -68,10 +94,5 @@
         {
             Assert.That(c.SomeString, Is.EqualTo(string.Empty));
         }
-    }
-
-    public class TestContext
-    {
-        public string SomeString { get; set; }
     }
 }

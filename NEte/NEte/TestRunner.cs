@@ -76,7 +76,7 @@
 
             if (invalidActions.Any())
             {
-                var invalidActionString = string.Join(",", invalidActions);
+                var invalidActionString = string.Join(",", invalidActions.Select(a => "\"" + a.GetFullStepText() + "\""));
 
                 throw new InvalidOperationException(
                     new StringBuilder(invalidActions.Count == 1 ? $"The following test step is " : "The following test steps are ")
