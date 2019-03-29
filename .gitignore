@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/NEte/NEte/obj
+/NEte/NEte/bin
+/NEte/NEte.UnitTests/bin
+/NEte/NEte.UnitTests/obj
+/NEte/packages
+*.ncrunchsolution
+*.ncrunchsolution.user
+*.ncrunchproject
+/NEte/.vs
+/NEte/_NCrunch_NEte
