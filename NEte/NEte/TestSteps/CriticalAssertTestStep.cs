@@ -23,7 +23,7 @@
         }
         public override TestStepResult RunStep()
         {
-            Console.WriteLine(this.GetStepText());
+            Console.WriteLine(this.GetFullStepText());
 
             try
             {
@@ -32,9 +32,7 @@
             }
             catch (AssertionException e)
             {
-                TestExecutionContext.CurrentContext.CurrentResult.AssertionResults.Clear();
-
-                Console.WriteLine(e);
+                Console.WriteLine($"  Critical Assert failure: {e}\r\n");
 
                 if (this.CriticalAssertOptions != null 
                     && this.CriticalAssertOptions.TestRetryAttempts.HasValue 
@@ -55,11 +53,21 @@
 
         protected static void RunMultipleTimes(Action action, int retryCount, TimeSpan standOff)
         {
-            Policy.Handle<AssertionException>().WaitAndRetry(retryCount, i => standOff, (ex, ts, rc, c) =>
+            var isolatedContext = new TestExecutionContext.IsolatedContext();
+            try
             {
-                Console.WriteLine($"\tAssert failed, retrying...");
-                TestExecutionContext.CurrentContext.CurrentResult.AssertionResults.Clear();
-            }).Execute(action);
+                Policy.Handle<AssertionException>().WaitAndRetry(retryCount, i => standOff, (ex, ts, rc, c) =>
+                {
+                    isolatedContext.Dispose();
+                    isolatedContext = new TestExecutionContext.IsolatedContext();
+                    Console.WriteLine($"  Assert failed: {ex.Message}\r\n  Retrying assert...\r\n");
+                    TestExecutionContext.CurrentContext.CurrentResult.AssertionResults.Clear();
+                }).Execute(action);
+            }
+            finally
+            {
+                isolatedContext.Dispose();
+            }
         }
     }
 }

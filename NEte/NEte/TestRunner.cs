@@ -1,11 +1,14 @@
 ﻿namespace NEte
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
 
     using NEte.TestSteps;
     using NUnit.Framework;
     using NUnit.Framework.Internal;
+
     internal static class TestRunner
     {
         public static void RunTest<T>(List<BasicTestStep<T>> testSteps)
@@ -13,7 +16,7 @@
             var assertionExceptions = new List<AssertionException>();
             var retryCounts = new Dictionary<int, int>();
 
-            // TODO: Validate all 'go-tos'
+            ValidateTestRetryPoints(testSteps);
 
             for (int stepIndex = 0; stepIndex < testSteps.Count; stepIndex++)
             {
@@ -54,12 +57,31 @@
                     var actionToReturnTo = testSteps.Single(s => s.OriginalAction.Equals(result.RetryAction));
                     retryCounts[stepIndex]++;
                     stepIndex = testSteps.IndexOf(actionToReturnTo) - 1;
+                    Console.WriteLine($"  Critical Assert failure, re-running test from step \"{actionToReturnTo.GetFullStepText()}\"\r\n");
                 }
             }
 
             if (assertionExceptions.Any())
             {
-                throw new AssertionException(null, assertionExceptions.Last());
+                Assert.Fail();
+            }
+        }
+
+        private static void ValidateTestRetryPoints<T>(List<BasicTestStep<T>> testSteps)
+        {
+            var invalidActions = testSteps.OfType<CriticalAssertTestStep<T>>().Where(ts =>
+                ts.CriticalAssertOptions?.ActionToReturnToOnTestFailure != null
+                && testSteps.Count(s =>
+                    s.OriginalAction.Equals(ts.CriticalAssertOptions.ActionToReturnToOnTestFailure)) != 1).ToList();
+
+            if (invalidActions.Any())
+            {
+                var invalidActionString = string.Join(",", invalidActions);
+
+                throw new InvalidOperationException(
+                    new StringBuilder(invalidActions.Count == 1 ? $"The following test step is " : "The following test steps are ")
+                        .Append("configured to retry the test but either the action they are set to retry from isn't part of the test or is used multiple times in the test: ")
+                        .Append(invalidActionString).ToString());
             }
         }
     }

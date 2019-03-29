@@ -49,17 +49,6 @@
                 .RunTest();
         }
 
-        [Test]
-        public void RunSomeTestWhichHasNonCriticalAndCiriticalFailuresAndRetriesTheTest()
-        {
-            EndToEndTestJourney<TestContext>
-                .Given(SomeArrangeStepIsPerformed)
-                .When(SomeActionIsPerformed)
-                .Then(SomethingIsAssertedFalse, AssertOptionsBuilder.RetryAssert(3, TimeSpan.FromSeconds(1)))
-                .AndCritically(SomethingIsAssertedFalse, new CriticalAssertOptionsBuilder<TestContext>().RetryTestUponFailure(2, TimeSpan.FromSeconds(1), SomeActionIsPerformed).Build())
-                .RunTest();
-        }
-
         public void SomeArrangeStepIsPerformed(TestContext c)
         {
             c.SomeString = "String!!!";

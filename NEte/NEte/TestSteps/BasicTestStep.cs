@@ -3,8 +3,6 @@
     using System;
     using System.Text.RegularExpressions;
 
-    using NUnit.Framework;
-
     internal class BasicTestStep<T>
     {
         public object OriginalAction { get; }
@@ -22,7 +20,7 @@
 
         public virtual TestStepResult RunStep()
         {
-            Console.WriteLine(GetStepText());
+            Console.WriteLine(GetFullStepText());
             try
             {
                 this.action.Invoke();
@@ -35,7 +33,7 @@
             }
         }
 
-        protected string GetStepText()
+        public string GetFullStepText()
         {
             return $"{this.stepTextPrefix} {this.stepText}";
         }
