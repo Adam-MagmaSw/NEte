@@ -23,6 +23,6 @@ steps:
   - task: NuGetCommand@2
     inputs:
       command: 'push'
-      packagesToPush: 'NEte/NEte/bin/Release/NEte.1.0.0.nupkg'
+      packagesToPush: 'NEte/NEte/bin/Release/NEte.1.0.$(Build.BuildId).nupkg'
       nuGetFeedType: 'external'
       publishFeedCredentials: 'MagmaSoftwareNuget'
