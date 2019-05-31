@@ -16,7 +16,7 @@ steps:
   - script: dotnet build --configuration $(buildConfiguration) NEte/NEte.sln
     displayName: 'dotnet build $(buildConfiguration)'
   - script: dotnet test
-    displayName: 'dotnet test'
+    displayName: 'dotnet test NEte/NEte.UnitTests/NEte.UnitTests.csproj'
   - task: NuGetCommand@2
     inputs:
       command: 'pack'
