@@ -1,6 +1,7 @@
 ﻿namespace NEte
 {
     using System;
+
     public interface IArrange<T>
     {
         IAct<T> When(Action<T> step);

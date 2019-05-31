@@ -3,6 +3,7 @@
     using System;
 
     using NUnit.Framework;
+
     public class TestStepResult
     {
         public TestStepOutcome Outcome { get; }

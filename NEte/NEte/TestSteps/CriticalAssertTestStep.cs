@@ -1,6 +1,7 @@
 ﻿namespace NEte.TestSteps
 {
     using System;
+    using System.Threading.Tasks;
 
     using NUnit.Framework;
     using NUnit.Framework.Internal;
@@ -60,8 +61,8 @@
                 {
                     isolatedContext.Dispose();
                     isolatedContext = new TestExecutionContext.IsolatedContext();
-                    Console.WriteLine($"  Assert failed: {ex.Message}\r\n  Retrying assert...\r\n");
-                    TestExecutionContext.CurrentContext.CurrentResult.AssertionResults.Clear();
+                    Console.WriteLine($"  Assert failed: {ex.Message}\r\n  Retrying assert after delay of {standOff.TotalSeconds}s...\r\n");
+                    Task.Delay(standOff).GetAwaiter().GetResult();
                 }).Execute(action);
             }
             finally

@@ -1,6 +1,7 @@
 ﻿namespace NEte
 {
     using System;
+
     public class CriticalAssertOptions<T>
     {
         public int? AssertRetryAttempts { get; }

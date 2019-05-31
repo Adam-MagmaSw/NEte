@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
 
     using NEte.TestSteps;
     using NUnit.Framework;
@@ -58,6 +59,10 @@
                     retryCounts[stepIndex]++;
                     stepIndex = testSteps.IndexOf(actionToReturnTo) - 1;
                     Console.WriteLine($"  Critical Assert failure, re-running test from step \"{actionToReturnTo.GetFullStepText()}\"\r\n");
+                    if (result.RetryStandOffPeriod.HasValue)
+                    {
+                        Task.Delay(result.RetryStandOffPeriod.Value);
+                    }
                 }
             }
 

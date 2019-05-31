@@ -12,3 +12,4 @@
 *.ncrunchproject
 /NEte/.vs
 /NEte/_NCrunch_NEte
+*.v3.ncrunchproject.user
