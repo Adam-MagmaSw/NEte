@@ -1,6 +1,7 @@
 ﻿namespace NEte
 {
     using System;
+
     public class AssertOptions
     {
         public int AssertRetryAttempts { get; }
