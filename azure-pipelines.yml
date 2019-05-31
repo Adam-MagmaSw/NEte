@@ -18,7 +18,7 @@ steps:
     displayName: 'dotnet build'
   - script: dotnet test NEte/NEte.UnitTests/NEte.UnitTests.csproj
     displayName: 'dotnet test'
-  - script: dotnet pack NEte/NEte/NEte.csproj --configuration $(buildConfiguration) -p:PackageVersion=1.0.$(Build.BuildNumber)
+  - script: dotnet pack NEte/NEte/NEte.csproj --configuration $(buildConfiguration) -p:PackageVersion=1.0.$(BuildID)
     displayName: 'dotnet pack'
   - task: NuGetCommand@2
     inputs:
