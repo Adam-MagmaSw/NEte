@@ -7,6 +7,7 @@
 
     using NEte.TestSteps;
     using NUnit.Framework;
+    using NUnit.Framework.Interfaces;
     using NUnit.Framework.Internal;
 
     internal static class TestRunner
@@ -31,7 +32,6 @@
 
                 if (result.Outcome == TestStepOutcome.NonCrucialFailure)
                 {
-                    TestExecutionContext.CurrentContext.CurrentResult.AssertionResults.Clear();
                     assertionExceptions.Add(result.AssertionException);
                     continue;
                 }
@@ -63,7 +63,9 @@
 
             if (assertionExceptions.Any())
             {
-                Assert.Fail();
+                TestExecutionContext.CurrentContext.CurrentResult.AssertionResults.Add(new AssertionResult(AssertionStatus.Failed, assertionExceptions.Last().Message, assertionExceptions.Last().StackTrace));
+                TestExecutionContext.CurrentContext.CurrentResult.RecordException(assertionExceptions.Last());
+                TestExecutionContext.CurrentContext.CurrentResult.SetResult(ResultState.Failure);
             }
         }
 

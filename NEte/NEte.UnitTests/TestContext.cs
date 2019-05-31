@@ -2,6 +2,5 @@
 {
     public class TestContext
     {
-        public string SomeString { get; set; }
     }
 }
