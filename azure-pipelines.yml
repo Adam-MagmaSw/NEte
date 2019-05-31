@@ -15,5 +15,10 @@ variables:
 steps:
   - script: dotnet build --configuration $(buildConfiguration) NEte/NEte.sln
     displayName: 'dotnet build $(buildConfiguration)'
-  - script: dotnet test NEte/NEte.UnitTests/NEte.UnitTests.csproj
+  - script: dotnet test
     displayName: 'dotnet test'
+  - task: NuGetCommand@2
+    inputs:
+      command: 'pack'
+      packagesToPack: 'NEte/NEte/NEte.csproj'
+      versioningScheme: 'off'
