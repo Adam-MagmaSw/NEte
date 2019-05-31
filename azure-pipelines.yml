@@ -23,6 +23,6 @@ steps:
   - task: NuGetCommand@2
     inputs:
       command: 'push'
-      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      packagesToPush: 'NEte/NEte/bin/Release/NEte.1.0.0.nupkg'
       nuGetFeedType: 'external'
       publishFeedCredentials: 'MagmaSoftwareNuget'
