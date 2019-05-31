@@ -16,7 +16,7 @@ steps:
   - script: ls
   - script: dotnet build --configuration $(buildConfiguration) NEte/NEte.sln
     displayName: 'dotnet build $(buildConfiguration)'
-  - script: dotnet test
+  - script: dotnet test NEte/NEte.UnitTests/NEte.UnitTests.csproj
     displayName: 'dotnet test NEte/NEte.UnitTests/NEte.UnitTests.csproj'
   - task: NuGetCommand@2
     inputs:
