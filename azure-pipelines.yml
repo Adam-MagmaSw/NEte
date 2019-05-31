@@ -13,7 +13,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-  - script: dotnet build --configuration $(buildConfiguration)
+  - script: dotnet build ~/NEte/NEte/NEte.sln --configuration $(buildConfiguration)
     displayName: 'dotnet build $(buildConfiguration)'
   - script: dotnet test ~/NEte/NEte/NEte.UnitTests/NEte.UnitTests.csproj
     displayName: 'dotnet test'
