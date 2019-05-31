@@ -20,3 +20,9 @@ steps:
     displayName: 'dotnet test'
   - script: dotnet pack --configuration $(buildConfiguration) NEte/NEte/NEte.csproj
     displayName: 'dotnet pack'
+  - task: NuGetCommand@2
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'external'
+      publishFeedCredentials: 'MagmaSoftwareNuget'
