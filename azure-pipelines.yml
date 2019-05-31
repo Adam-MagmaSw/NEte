@@ -14,7 +14,15 @@ variables:
 
 steps:
   - script: ls
-  - script: dotnet build ~/NEte/NEte/NEte.sln --configuration $(buildConfiguration)
-    displayName: 'dotnet build $(buildConfiguration)'
-  - script: dotnet test ~/NEte/NEte/NEte.UnitTests/NEte.UnitTests.csproj
+  - script: dotnet build --configuration $(buildConfiguration) NEte/NEte.sln
+    displayName: 'dotnet build'
+  - script: dotnet test NEte/NEte.UnitTests/NEte.UnitTests.csproj
     displayName: 'dotnet test'
+  - script: dotnet pack NEte/NEte/NEte.csproj --configuration $(buildConfiguration) -p:PackageVersion=1.0.$(Build.BuildId)
+    displayName: 'dotnet pack'
+  - task: NuGetCommand@2
+    inputs:
+      command: 'push'
+      packagesToPush: 'NEte/NEte/bin/Release/NEte.1.0.$(Build.BuildId).nupkg'
+      nuGetFeedType: 'external'
+      publishFeedCredentials: 'MagmaSoftwareNuget'
